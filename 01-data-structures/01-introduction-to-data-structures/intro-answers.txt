@@ -1,0 +1,20 @@
+Answers for part1, a line of people at an amusement park ride:
+How does your data structure allow developers to access and manipulate the data?
+- data is accessed and manipulated using arrays
+
+If a developer wanted to find a specific element in your data structure, how would you search for it?
+- you can search by the person's name using the search method, or look for the first, middle, or last member's in the line calling first, middle and last methods
+
+What other real-world data can each structure represent?
+- arrays are used for a variety of real-world data situations, for a variety of different data types. For example, integers and floating point values are commonly stored in arrays for a variety of different scientific applications (image analysis, etc.).
+
+Answers for part 2, Pixels on a computer screen:
+How does your data structure allow developers to access and manipulate the data?
+- data is stored in a 2D array. Users can add data using the #insert method, which takes in the pixel values (e.g. Red, Green, Blue) and
+
+If a developer wanted to find a specific element in your data structure, how would you search for it?
+
+- The user access the data via the (x,y) coordinates by calling the #at method and passing in valid x and y parameters, which returns the pixel data (e.g. Red,Green,Blue) values stored at that specific (x,y) location.
+
+What other real-world data can each structure represent?
+- There are a variety of real-world applications for array data, especially in computer programming when you need an indexed data structure. The added flexibility of being able to store different data types in the array (strings, integers, floating point values, etc.) makes them more versatile. In earlier work, I commonly used multidimensional arrays when working with satellite datasets.
