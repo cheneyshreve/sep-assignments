@@ -1,1 +1,11 @@
-When I first read the exercise description, I thought about a queue so I searched "queuing in Ruby", which brought up a discussion of 'stacking' ("last-in, first-out") versus 'queuing' ("first-in, first-out"). However, you can just use a an array for this exercise with push and pop methods for adding and removing people, which is also used in stacking/queuing, however, we add methods to this class for searching for individuals, and for the middle person in the line. 
+When I first read the exercise description, I thought about a queue so I searched "queuing in Ruby", which brought up a discussion of 'stacking' ("last-in, first-out") versus 'queuing' ("first-in, first-out"). However, you can just use a an array for this exercise with push and pop methods for adding and removing people, which is also used in stacking/queuing, however, we add methods to this class for searching for individuals, and for the middle person in the line.
+
+Questions:
+How does your data structure allow developers to access and manipulate the data?
+- data is accessed and manipulated using arrays
+
+If a developer wanted to find a specific element in your data structure, how would you search for it?
+- you can search by the person's name using the search method, or look for the first, middle, or last member's in the line calling first, middle and last methods
+
+What other real-world data can each structure represent?
+- arrays are used for a variety of real-world data situations, for a variety of different data types. For example, integers and floating point values are commonly stored in arrays for a variety of different scientific applications (image analysis, etc.).
