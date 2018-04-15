@@ -33,7 +33,7 @@ class Line
 
   def search(person)
     if @members.include?(person)
-      return person
+       person
     else
       return nil
     end
