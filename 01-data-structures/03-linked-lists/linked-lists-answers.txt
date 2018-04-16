@@ -1,0 +1,35 @@
+1.What is Spatial Locality and why does it benefit performance?
+- Spatial locality refers to the physical in which data is stored. Data structures can differ in their spatial locality. For example, in this exercise, we compared arrays, which store data in a contiguous block of RAM, to linked lists, that assigned to memory where it is available. Put differently, the spatial locality or address of the array is predictable, whereas that of the linked list is not so we say that linked lists lack spatial locality. The key benefit of using a linked lists is it requires less memory compared to an array, further, nodes or values in the list are stored independently. The disadvantages of linked lists are that they are not indexed like an array, so to find a specific node, you must search from the beginning of the list. Additionally, due to the way that processors function, when a processor accesses an array, which is stored in RAM, it retrieves a range of values, whereas with the linked list, it is only looking for a single value at a time. Searching for independent values decreases the likelihood of a Cache-miss.
+
+2.
+2a - Compare the performance of an Array to a Linked List using the Benchmark module.
+
+
+| User       | System         | Total | Real|
+| ---------- |:-------------:|  -----:|-----:|
+| 0.000657 | 0.000008 | 0.000665 | (0.000664)|
+| 1.665784 | 0.001093 | 1.666877 | (1.668033)|
+
+Compare the time it takes to create a 10,000 item Array to appending 10,000 items to a Linked List. We can see in these results that it takes longer to create the linked list, but later on, it's much faster to access and manipulate data for the linked list compared to the array.
+
+
+2b - Compare the time it takes to access the 5000th element of the Array and the 5000th Node in the Linked List.
+
+
+| User       | System         | Total | Real|
+| ---------- |:-------------:|  -----:|-----:|
+| 0.000006 | 0.000003 | 0.000009 | (0.000004)|
+| 0.000003 | 0.000000 | 0.000003 | (0.000003)|
+
+Retrieval times are fast for both data structures, but the time is less for linked lists.
+
+
+2c - Compare the time it takes to remove the 5000th element from the Array to removing the 5000th Node in the Linked List. In the Array, the 5001st item becomes the 5000th, and so on.
+
+
+| User       | System         | Total | Real|
+| ---------- |:-------------:|  -----:|-----:|
+| 0.000006 | 0.000003 | 0.000009 | (0.000005)|
+| 0.000003 | 0.000001 | 0.000004 | (0.000003)|
+
+Removing a node from linked lists is faster than removing data from an array.
