@@ -2,7 +2,6 @@ require 'benchmark'
 require_relative 'node'
 require_relative 'linked_list'
 
-# Compare the time it takes to create a 10,000 item Array to appending 10,000 items to a Linked List.
 n = 10000
 array = []
 linked_list = LinkedList.new
