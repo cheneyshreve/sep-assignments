@@ -1,59 +1,58 @@
 require_relative 'hash_item'
-require 'prime'
+
 
 class HashClass
 
   def initialize(size)
     @items = Array.new(size)
-
   end
 
-# use summation, multiplication, and the modulus operator to create a hashing function
-# create the insertion methods by overriding operators
+# override operators to (re)create hash function
   def []=(key, value)
-    #need to work on this method and the next method
-    @items[key] = value
+    # create a new key,value pair
+    item = HashItem.new(key, value)
+    # create an index
+    item_key = index(key, size)
+    # check if the items array contains the index
+    if @items[item_key].nil?
+      @items[item_key] = item
+    # check for possible collisions, if found, resize and update array
+    elsif @items[item_key].key != item.key
+      self.resize
+      self[key] = value
+    elsif @items[item_key].value != item.value
+      self.resize
+      @items[index(item.key, size)] = value
+    end
   end
 
-# create the insertion methods by overriding operators
   def [](key)
-    @items[key]
+    if @items[index(key,@items.length)]!= nil
+     @items[index(key,@items.length)].value
+    end
   end
 
-# when a collision occurs, expand the size of the existing code
-# look to the next highest power of 2, then snag the closest prime number
-# that prime number will become the new array size
   def resize
-    current_size = @items.size
-    next_power = (Math.log2(current_size)).ceil
-    new_base = 2**next_power
-    new_size = new_base
-
-    until new_size.prime?
-      new_size += 1
+    original_array = @items
+    doubled_array = Array.new(original_array.length * 2)
+    original_array.each do |item|
+      if item != nil
+        doubled_array[index(item.key, item.to_s.size)] = item
+      end
     end
-    # now need to resize array to new size dims
-    new_hash = Array.new(new_size)
-    @items.each do |item|
-      new_key = item.index(item,item.length)
-      new_hash[key] = new_key
-      new_hash[key] = item
-    end
-    @items = new_hash
+    @items = doubled_array
   end
 
-  # Returns a unique, deterministically reproducible index into an array
-  # We are hashing based on strings, let's use the ascii value of each string as
-  # a starting point.
   def index(key, size)
-    # hash_code = key.chars.map{|x| x.ord }.join().to_i
-    # key = hash_code
     key.sum % size
   end
 
-  # Simple method to return the number of items in the hash
   def size
     @items.length
+  end
+
+  def print
+
   end
 
 end
