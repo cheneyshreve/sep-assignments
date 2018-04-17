@@ -5,11 +5,13 @@ class HashClass
 
   def initialize(size)
     @items = Array.new(size)
+
   end
 
 # use summation, multiplication, and the modulus operator to create a hashing function
 # create the insertion methods by overriding operators
   def []=(key, value)
+    #need to work on this method and the next method
     @items[key] = value
   end
 
@@ -33,8 +35,9 @@ class HashClass
     # now need to resize array to new size dims
     new_hash = Array.new(new_size)
     @items.each do |item|
-      new_key = item.index
-      new_hash[new_key] = item
+      new_key = item.index(item,item.length)
+      new_hash[key] = new_key
+      new_hash[key] = item
     end
     @items = new_hash
   end
@@ -43,8 +46,9 @@ class HashClass
   # We are hashing based on strings, let's use the ascii value of each string as
   # a starting point.
   def index(key, size)
-    hash_code = key.chars.map{|x| x.ord }
-    key = hash_code
+    # hash_code = key.chars.map{|x| x.ord }.join().to_i
+    # key = hash_code
+    key.sum % size
   end
 
   # Simple method to return the number of items in the hash
