@@ -1,0 +1,22 @@
+Written Assignment: Explain why doubling the underlying array of your hash class is a poor idea.
+
+As discussed in an earlier lessons regarding data structures, arrays, while convenient, are expensive in terms of memory due to their spatial locality, as they must be stored sequentially. Doubling the array size for our hash function in this exercise was not wise because of potential memory and fragmentation issues that could manifest as a result. Internal to the data structure, doubling the size produced unnecessary fragmentation so we end up having to write extra code, such as using `.compact` and added conditionals to ignore nil values while we were processing. As the basic example in the discussion leading up to the assignment stated, if we assume the initial size of the array, k, is 5, when we need to resize the hash because of a collision, we'd resize it considering the next largest power of 2 greater than our current k value, and then resize it to the closest prime number (something like the code snippet below). External to our data structure, we might also cause problems if we had really large arrays and the operating system had to rearrange the physical memory.
+
+```
+include 'prime'
+
+def resize_base_array
+
+  current_size = @items.length
+  next_power = (Math.log2(current_size)).ceil
+  new_base = 2**next_power
+  new_size = new_base
+
+  until new_size.prime?
+    new_size += 1
+  end
+
+  resized_array = Array.new(new_size)
+
+end
+```

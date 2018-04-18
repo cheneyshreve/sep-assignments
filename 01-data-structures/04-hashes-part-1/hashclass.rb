@@ -27,32 +27,35 @@ class HashClass
   end
 
   def [](key)
-    if @items[index(key,@items.length)]!= nil
      @items[index(key,@items.length)].value
-    end
   end
 
   def resize
-    original_array = @items
-    doubled_array = Array.new(original_array.length * 2)
-    original_array.each do |item|
-      if item != nil
-        doubled_array[index(item.key, item.to_s.size)] = item
-      end
-    end
-    @items = doubled_array
+    # remove any nil values using compact
+    original_values = @items.compact
+    # per the instructions, double the size for the new array
+    @items = Array.new(self.size * 2)
+    # iterate over each of the old values and update the keys and value
+    original_values.each { |item| self[item.key] = item.value }
   end
 
+  # generate an index
   def index(key, size)
     key.sum % size
   end
-
+  # return size
   def size
     @items.length
   end
 
+  # print non-empty hash results
   def print
-
+    n = @items.size
+    n.times do |i|
+      if @items[i] != nil
+        puts "#{@items[i].key} : #{@items[i].value}"
+      end
+    end
   end
 
 end
