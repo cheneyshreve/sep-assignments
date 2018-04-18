@@ -41,8 +41,15 @@ class HashClass
 
   # generate an index
   def index(key, size)
-    key.sum % size
+    sum = 0
+    key.chars.each do |x|
+      sum += x.ord
+    end
+    sum % size
   end
+
+  key = "test"
+  index(key, 6)
   # return size
   def size
     @items.length
