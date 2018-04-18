@@ -48,8 +48,6 @@ class HashClass
     sum % size
   end
 
-  key = "test"
-  index(key, 6)
   # return size
   def size
     @items.length
