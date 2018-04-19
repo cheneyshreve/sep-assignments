@@ -7,13 +7,9 @@ class LinkedList
   # This method creates a new `Node` using `data`, and inserts it at the end of the list.
   def add_to_tail(node)
     current = @head
-    if (@head == nil) && (@tail == nil)
+    if (@head == nil)
       @head = node
-      @tail = node
     else
-      while current.next != nil
-        current = current.next
-      end
       current.next = node
       @tail = node
     end
@@ -25,13 +21,9 @@ class LinkedList
     return nil if @tail == nil
     if @head == @tail
       @head = nil
-      @tail = nil
     else
-      while (current.next != nil) && (current.next != @tail)
-        current = current.next
-      end
-        @tail = current
-        @tail.next = nil
+      @tail = current
+      @tail.next = nil
     end
   end
 
