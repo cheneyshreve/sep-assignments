@@ -5,54 +5,48 @@ class OpenAddressing
   def initialize(size)
     @items = Array.new(size)
     @size = size
-    @entries = 0
-    @max_load_factor = 0.7
   end
 
   def []=(key, value)
-    # compute the hash code for key, assign to index
-    node = Node.new(key,value)
-    i = index(key,self.size)
+    i = index(key, @size)
     item = @items[i]
-    if @items[i] == nil
-      @items[i] = node
-      @entries += 1
-    elsif @items[i].key == key && @items[i].value != value
-      @items[i].value = value
-    else
-      j = self.next_open_index(i)
-      if j == -1
+    if item.nil?
+      @items[i] = Node.new(key, value)
+    elsif item.key != key
+      while @items[index(key, @size)].key != nil && @items[index(key, @size)].key != key
         resize
-        self[key] = value
+        new_index = index(key, @size)
+        break if @items[new_index] == nil
+      end
+      self[key] = value
+    elsif item.key == key && item.value != value
+      if next_open_index(i) == -1
+        resize
+        new_index = index(key, @size)
+        @items[new_index].value = value
       else
-        @items[j] = Node.new(key,value)
-        @entries += 1
-        if load_factor > @max_load_factor
-          self.resize
-        end
+        next_index = next_open_index(index(key, @size))
+        @items[next_index] = value
       end
     end
   end
 
   def [](key)
-    (0..@items.size-1).each do |i|
-      if @items[i] != nil
-        if @item[i].key == key
-          return @items[i].value
-        end
-      end
+    item = @items[index(key, @size)]
+    if item == nil
+      return nil
+    else
+      return item.value
     end
   end
 
   # Returns a unique, deterministically reproducible index into an array
-  # We are hashing based on strings, let's use the ascii value of each string as
-  # a starting point.
   def index(key, size)
     sum = 0
     key.chars.each do |x|
       sum += x.ord
     end
-    sum % size
+    key.sum % size
   end
 
   # Given an index, find the next open index in @items
@@ -71,15 +65,16 @@ class OpenAddressing
    @items.length
   end
 
-  def load_factor
-    @entries / self.size.to_f
-  end
-
-
-  # Resize the hash
+  # Resize the hash  # Resize the hash
   def resize
-    old_items = @items.compact
-    @items = Array.new(self.size * 2)
-    old_items.each { |item| self[item.key] = item.value }
+    @size = @size * 2
+    expanded_hash = Array.new(@size)
+    @items.each do |item|
+      if item != nil
+        expanded_hash[index(item.key, @size)] = item
+      end
+    end
+    @items = expanded_hash
   end
+
 end
