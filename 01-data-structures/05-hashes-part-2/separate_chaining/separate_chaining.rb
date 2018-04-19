@@ -56,8 +56,8 @@ class SeparateChaining
 
   # Resize the hash
   def resize
-    new_size = size*2
-    new_items = Array.new(new_size)
+    new_items = Array.new(self.size * 2)
+
     (0..@items.size-1).each do |i|
       list = @items[i]
       if list != nil
