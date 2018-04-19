@@ -77,12 +77,4 @@ class OpenAddressing
     @items = expanded_hash
   end
 
-  def print
-    n = @items.size
-    n.times do |i|
-      if @items[i] != nil
-        puts "#{@items[i].key} : #{@items[i].value}"
-      end
-    end
-  end
 end
