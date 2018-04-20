@@ -1,0 +1,39 @@
+A simple definition of hashing given by Singh and Garg (2009) states that hashing is the transformation of a string of characters into a key; typically, a shorter, fixed-length value that represents the original string. The key is used for access and retrieval of those specific items from a database, thus hashing can be thought of as a form of mapping. This writing assignment briefly discusses collision management strategies used by different hashing functions that we did not previously discuss (e.g. linear probing, quadratic probing, double hashing) and posits what my own hashing strategy would look like if I were to build one.
+
+One way to alter the hashing algorithm we implemented for this assignment, would be to simply use a different method for generating the key. The most common methods are shown below:
+
+```
+Division: H(x)= x mod m
+
+Multiplication: H(x)= (a*b* c* d*....) mod m
+
+Folding: H(x)= (a+b+c) mod m
+
+Where x is the preconditioned key, m is typically the table size, mod is the modulo operator and a,b,c, and d are individual digits in the input key.
+
+Random Number generator: primarily used in cryptography; initially the state of a chaotic system is digitized to form a binary string, then a second binary string is produced which becomes the seed for a pseudo-random number generator
+Singh and Garg (2009)
+```
+Swapping one of these methods for the one we used for this assignment could reduce the number of collisions by generating keys that are less likely to overlap, however, at some point it would still be necessary to have an actual collision strategy.
+
+We discussed the most common collision resolution strategies in the assignment, e.g. linear probing, quadratic probing, and double hashing. Three alternative strategies that we did not go over include: hashing without collision detection, a multihash approach (exceeding double hashing), and a hash compact approach (Wolper and Leroy, 1993). Hashing without collision detection was proposed by Holtzmann in an effort to save memory (ibid). The table is a table of bits initially set to zero, to add state to the table, one hashes the state description into an address in the table and sets the bit at this address to 1 (ibid: 2).
+
+```
+For a table of bits T, initially T[i] = 0.
+To access this table, one uses a hash function, h, and stores a state, s, in the table, which amounts to setting T[h(s)] = 1.
+
+Holtmann also recommended that you could use two hashes to improve this process, among other conditions.
+```
+
+The problem is that you can still run into hash collisions, yet it is argued that the probability of collisions can be kept small if the table is not too full (ibid). Seeking to improve on this approach, Wolper and Leroy (1993) conducted a probabilistic analysis of Holtmann’s method. They found that, instead of using 2 hash functions, the ideal number is actually 20; to obtain a small probability of collisions with 1 or 2 hash tables with such an approach requires an unrealistically large table (ibid). They also explored an alternative they called hash compacting, where the idea is to compute the address in a large table, but to store it in a much smaller hash table which utilizes a collision resolution scheme (ibid). The authors describe one way to view their method applied to the state description as a compaction function, thus the name hash compact.
+
+Switching gears, if I had to design my own hash function, I would want to analyze the context first. As Singh and Garg (2009) identify, typical hash operations are initialization, insertion, retrieval, and deletion. Different hashing algorithms have advantages and disadvantages depending on the type of data you are using and the hash operations you use most. For example, geometric and robust hashing algorithms are favored for working with audio and imagery files, whereas dynamic hash functions are favored for simple data access and retrieval (ibid). The situation might arise where you’d need more than one type of hashing function.
+Once I’d characterized the context of my application, I’d dive deeper into the particular algorithm or algorithms recognized in that area. However, we can say that most problems are going to center around run time and efficiency, security, and accuracy, which is often communicated in terms of cache-miss. Once I’d developed my list of priorities, I’d start comparing those to specific algorithms and weighting them according to how well they each could address those problems.
+Okay, that’s what I’d do in reality; I’ve been a researcher for the majority of my career and I like to research stuff, plus, I’m not trained to generate amazing new hashing algorithms on the fly, but don’t I wish!
+Reading Singh & Garg’s (2009) assessment of hashing, three things jumped out at me, 1- hashing is the opposite of sorting, 2 – hashing makes a relationship between your data and where it’s stored, but it doesn’t make use of relationships that exist within the data, and 3- the stuff going on with proteins and geometric hash functions is really cool. I’d ask myself what lessons from sorting could be applied to hashing, and if there’s a way to combine these two processes? Pretending for a moment that I was mathematically gifted, I’d start to think about incorporating relationships or patterns within the data itself into the hashing algorithm. My imaginary hashing algorithm would utilize these relationships in the data as another unique layer to further characterize keys and reduce the possibility of collisions, the patterns would be like adding elevation to a 2D (latitude, longitude) topo map. I’m not sure how it could actually be implemented, but my guess is it would require multiple hash tables with some element of what Wolper and Leroy describe as hash compaction.
+
+Works cited:
+
+Singh, M. and Garg, D. 2009. IEEE International Advance Computing Conference. Choosing best hashing strategies and hash functions.
+
+Wolper, P. and Leroy, D. 1993. Reliable hashing without collision detection. Computer Aided Verification Proc Int. Workshop, Elounda ,Crete. Lecture Notes in Computer Science, Vol. 697 Springer Verlag, June, 1993, pp. 59-70.
