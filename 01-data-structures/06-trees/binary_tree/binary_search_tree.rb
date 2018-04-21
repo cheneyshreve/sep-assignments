@@ -37,19 +37,17 @@ class BinarySearchTree
 
 # removes node with given data, keeps binary search tree in tact
 def delete(root, data)
-# need to update this method...
- target_node = find(root,data)
- target_node.title = nil
- target_node.rating = nil
-
+  return if @root.nil? || data.nil?
+  target_node = find(root,data)
+  target_node.title = nil
+  target_node.rating = nil
 end
 
   # Recursive Breadth First Search
-  def printf(children=nil)
-   results = []
-   queue = [@root]
-   return nil if @root.nil?
-
+def printf(children=nil)
+ results = []
+ queue = [@root]
+ return nil if @root.nil?
    while !queue.empty?
      next_node = queue.shift
 
@@ -66,6 +64,6 @@ end
     results.each do |node|
         print node + "\n"
     end
-  end
+end
 
 end
