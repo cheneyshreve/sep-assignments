@@ -13,6 +13,13 @@ class MinHeap
     bubble_up(@elements.size - 1)
   end
 
+  def count
+    return @elements.count - 1 # do not count the nil element at position[0]
+  end
+
+  def elements
+    return @elements.drop(1) # make sure nil element is removed
+  end
 
   def pop
     exchange(1, @elements.size - 1)
@@ -26,7 +33,7 @@ class MinHeap
 
     return if index <= 1
 
-    return if @elements[parent_index].rating <= @elements[index].rating
+    return if @elements[parent_index].rating >= @elements[index].rating
 
     exchange(index, parent_index)
     bubble_up(parent_index)
@@ -62,14 +69,24 @@ class MinHeap
     @elements_position_map[tmp_target.node] = source_element_position
   end
 
+  def find(node,data)
+    temp = self.elements
+    while !temp.empty?
+      current = temp.shift
+      if current != nil && current.title = data
+        return current
+      end
+    end
+     return nil unless current
+  end
+
   def printf(children=nil)
-    values = @elements.compact
+    values = self.elements
 
     while !values.empty?
       current = values.shift
       puts "#{current.title} : #{current.rating}"
     end
-
   end
 
 end
