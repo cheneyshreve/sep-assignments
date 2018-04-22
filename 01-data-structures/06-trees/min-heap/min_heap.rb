@@ -1,3 +1,4 @@
+require_relative 'node'
 
 class MinHeap
   attr_reader :element
@@ -7,20 +8,23 @@ class MinHeap
     @elements_position_map = Hash.new
   end
 
+  # override shovel operator
   def <<(element)
     @elements << element
-    @elements_position_map[element.node] = @elements.size - 1
-    bubble_up(@elements.size - 1)
-  end
-
-  def count
-    return @elements.count - 1 # do not count the nil element at position[0]
   end
 
   def elements
     return @elements.drop(1) # make sure nil element is removed
   end
 
+ # inserts a node
+  def insert(node)
+    @elements << node
+    @elements_position_map[node.rating] = @elements.size - 1
+    bubble_up(@elements.size - 1)
+  end
+
+ # removes last node, organizes heap again
   def pop
     exchange(1, @elements.size - 1)
     max = @elements.pop
@@ -28,6 +32,7 @@ class MinHeap
     max
   end
 
+# organizes heap
   def bubble_up(index)
     parent_index = (index / 2)
 
@@ -39,76 +44,80 @@ class MinHeap
     bubble_up(parent_index)
   end
 
+# organizes heap
   def bubble_down(index)
     child_index = (index * 2)
 
     return if child_index > @elements.size - 1
 
     not_the_last_element = child_index < @elements.size - 1
-    left_element = @elements[child_index]
-    right_element = @elements[child_index + 1]
-    child_index += 1 if not_the_last_element && right_element.rating > left_element.rating
+    left_child = @elements[child_index]
+    right_child = @elements[child_index + 1]
 
-    return if @elements[index].rating >= @elements[child_index].rating
+    if not_the_last_element && right_child.rating < left_child.rating
+      child_index += 1
+    end
+
+    return if @elements[index].rating <= @elements[child_index].rating
 
     exchange(index, child_index)
     bubble_down(child_index)
   end
 
+# swaps two nodes
   def exchange(source_index, target_index)
     tmp_source = @elements[source_index]
     tmp_target = @elements[target_index]
 
-    source_element_position = @elements_position_map[tmp_source.node]
-    target_element_position = @elements_position_map[tmp_target.node]
+    source_element_position = @elements_position_map[tmp_source.rating]
+    target_element_position = @elements_position_map[tmp_target.rating]
 
     @elements[source_index] = tmp_target
     @elements[target_index] = tmp_source
 
-    @elements_position_map[tmp_source.node] = target_element_position
-    @elements_position_map[tmp_target.node] = source_element_position
+    @elements_position_map[tmp_source.rating] = target_element_position
+    @elements_position_map[tmp_target.rating] = source_element_position
   end
 
+# finds and returns a node
   def find(node,data)
     temp = self.elements
+
     while !temp.empty?
       current = temp.shift
-      if current != nil && current.title = data
-        return current
-      end
+        if current = data
+          return current
+        else
+          return nil
+        end
     end
-     return nil unless current
   end
+
+# removes a node
+  def delete(node,data)
+    node = find(node,data)
+    return nil if node.nil?
+      element_position = @elements_position_map[node.rating]
+
+    unless element_position.nil?
+      exchange(element_position, @elements.size - 1)
+      element_to_remove = @elements.pop
+      @elements_position_map.delete(element_to_remove.rating)
+
+      bubble_down(element_position)
+      return element_to_remove
+    end
+  end
+
 
   def printf(children=nil)
     values = self.elements
 
     while !values.empty?
       current = values.shift
-      puts "#{current.title} : #{current.rating}"
+      puts "#{current.title}: #{current.rating}"
     end
   end
 
+
 end
-
-root = Node.new("The Matrix", 87)
-tree = MinHeap.new
-n1 = Node.new("Pacific Rim", 72)
-n2 = Node.new("Braveheart", 78)
-n3 = Node.new("Donnie Darko", 85)
-n4 = Node.new("Inception", 86)
-n5 = Node.new("District 9", 90)
-n6 = Node.new("The Martian", 92)
-n7 = Node.new("Star Wars: A New Hope", 93)
-n8 = Node.new("Mad Max 2: The Road Warrior", 98)
-tree << root
-tree << n1
-tree << n2
-tree << n3
-tree << n4
-tree << n5
-tree << n6
-tree << n7
-tree << n8
-
-tree.printf
