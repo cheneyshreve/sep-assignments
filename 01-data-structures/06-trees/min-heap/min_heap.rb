@@ -6,7 +6,7 @@ class MinHeap
   # I built this class by modifying code from two sources:
   # Brian Sorti's Priority Queue class, which implements a basic min Heap based on an array (https://www.brianstorti.com/implementing-a-priority-queue-in-ruby/)
   # Andy LeRoy's code which build's on Sorti's code, but is part of a
-  # mimimum spanning tree algorithm, and uses a hash to keep track of node positions.
+  # mimimum spanning tree algorithm, and uses a hash to keep track of nodes.
   #https://github.com/apleroy/minimum_spanning_tree_google_maps_api/blob/master/app/classes/min_heap.rb
 
   # Modifications I made to the code:
@@ -14,11 +14,10 @@ class MinHeap
   # - added methods: insert, find
   # - modified methods: bubble_up, bubble_down, exchange, delete to utilize new methods and organize based on rating
 
-  # Both of these sources utilize the same basic idea:
+  # Both of these sources utilize the same pattern, after setting the first array value 0 or nil
   # The children of an element at a given index i will always be in 2i and 2i + 1.
   # The parent of this node will be at the index i/2.
-  # MinHeap has the property that all nodes are larger than their parent
-  # smallest element of the minheap is at the root
+  # MinHeap has the property that all nodes are larger than their parent with smallest element at root
 
   def initialize
     @elements = [nil]

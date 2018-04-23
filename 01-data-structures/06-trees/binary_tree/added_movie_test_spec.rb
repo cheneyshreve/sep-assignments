@@ -20,11 +20,11 @@ RSpec.describe BinarySearchTree, type: Class do
 
   describe "#printf" do
     specify {
-       expected_output = "Hackers: 32\nLara Croft: Tomb Raider: 49\nCowboys & Aliens: 44\nMaleficient: 50\nClear and Present Danger: 82\nAustin Powers: International Man of Mystery: 70\nSpy: 94\nEnder's Game: 61\nWanted: 71\nAvatar: 83\nSalt: 62\nJumanji: Welcome to the Jungle: 76\n"
+       expected_output = "Hackers: 32\nCowboys & Aliens: 44\nLara Croft: Tomb Raider: 49\nMaleficient: 50\nClear and Present Danger: 82\nAustin Powers: International Man of Mystery: 70\nSpy: 94\nEnder's Game: 61\nWanted: 71\nAvatar: 83\nSalt: 62\nJumanji: Welcome to the Jungle: 76\n"
+      tree.insert(root, cowboys_and_aliens)
       tree.insert(root, lara_croft)
       tree.insert(root, maleficient)
       tree.insert(root, clear_and_present_danger)
-      tree.insert(root, cowboys_and_aliens)
       tree.insert(root, spy)
       tree.insert(root, austin_powers)
       tree.insert(root, avatar)
