@@ -113,7 +113,7 @@ class MinHeap
   def delete(node,data)
     node = find(node,data)
     return nil if node.nil?
-      element_position = @elements_position_map[node.rating]
+    element_position = @elements_position_map[node.rating]
 
     unless element_position.nil?
       exchange(element_position, @elements.size - 1)
