@@ -1,0 +1,47 @@
+
+
+BinarySearchTree.rb:
+- each child points to an older child to the right, and younger to the left
+- tree must be sorted
+
+Movie Outputs:
+
+Hackers: 32\nCowboys & Aliens: 44\nLara Croft: Tomb Raider: 49\nMaleficient: 50\nClear and Present Danger: 82\nAustin Powers: International Man of Mystery: 70\nSpy: 94\nEnder's Game: 61\nWanted: 71\nAvatar: 83\nSalt: 62\nJumanji: Welcome to the Jungle: 76\n
+
+MinHeap.rb:
+-Highest rated movie at the top, lowest rated movie at the bottom
+-Each parent node is >= to the child nodes
+
+Movie Outputs:
+
+Spy: 94\nAvatar: 83\nClear and Present Danger: 82\nEnder's Game: 61\nWanted: 71\nJumanji: Welcome to the Jungle: 76\nAustin Powers: International Man of Mystery: 70\nHackers: 32\nMaleficient: 50\nLara Croft: Tomb Raider: 49\nSalt: 62\nCowboys & Aliens: 44\n
+
+
+Benchmark tests & answers:
+                      user     system      total        real
+binary tree #insert   0.021893   0.000466   0.022359 (  0.022456)
+min heap #insert      0.015996   0.000679   0.016675 (  0.016800)
+
+- The min heap was faster for inserting elements compared to the binary tree.
+
+user     system      total        real
+binary search #find  0.000014   0.000002   0.000016 (  0.000014)
+min heap #find       0.000011   0.000006   0.000017 (  0.000017)
+
+- The min heap was faster for finding elements compared to the binary tree. This would be
+especially relevant for the min value in a min heap, or the max value for a max heap.
+
+user     system      total        real
+binary search #delete  0.000005   0.000001   0.000006 (  0.000006)
+min heap #delete       0.000040   0.000036   0.000076 (  0.000076)
+
+- The binary search was faster for deleting elements in comparison to the min heap.
+
+When to use Binary Search:
+- When you need your data to be sorted
+- Binary search tree has better average global find (O(log n)), but heaps are better at finding min and max (O(1))
+
+When to use a Heap:
+- When you need to quickly find minimum and maximum values in your dataset
+- If you are only concerned with this priority-relationship (min/max) in your dataset
+- Average insert time for heaps is better (O(1)) compared to average for binary search tree (O(log n))
