@@ -16,7 +16,6 @@ RSpec.describe MinHeap, type: Class do
   let (:n10) { Node.new("Wanted", 71) }
   let (:n11) { Node.new("Jumanji: Welcome to the Jungle", 76) }
 
-
   describe "#insert" do
     it "properly inserts a node" do
       tree.insert(n1)
