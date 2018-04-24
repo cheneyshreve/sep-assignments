@@ -11,6 +11,7 @@ class KevinBacon
       'Keith David', 'Aaron White'],
       degree: 0
     }
+    @degrees_of_bacon = {}
   end
 
   def insert(root,node)
@@ -36,7 +37,15 @@ class KevinBacon
   end
 
   def find_kevin_bacon(root,actor_name)
-   actor = find(root,actor_name)
+   # check if the value is in the bacon cache
+   temp = @degrees_of_bacon[actor_name]
+   if temp != nil
+     return puts "#{actor_name} has a #{temp[0]} degree connection to Kevin Bacon through the film #{temp[1]}"
+   else
+     actor = find(root,actor_name)
+     populate_hash(actor.name)
+   end
+
   end
 
    def populate_hash(actor_name)
@@ -62,15 +71,12 @@ class KevinBacon
   # extract films the actor has been in
    database.each do |key,value|
      if value.include?(actor_name) && value.include?("Kevin Bacon")
-       films << key
-       return puts "#{actor_name} has a 1st degree connection to "+
+       @degrees_of_bacon[actor_name] = [1, key]
+       return puts "#{actor_name} has a 1st degree connection to " +
        "Kevin Bacon through the movie #{key}"
      end
+   end
 
-
-    end
-
-    return films
   end
 
 
@@ -90,5 +96,5 @@ tree.insert(root,dakota_johnson)
 tree.insert(root, keira_knightley)
 # tree.find(root, 'Keira Knightley')
 # tree.find(root, "Tom Kemp")
-tree.find(root, "Dakota Johnson")
+# tree.find(root, "Dakota Johnson")
 tree.find_kevin_bacon(root,"Dakota Johnson")
