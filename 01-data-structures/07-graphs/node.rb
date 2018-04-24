@@ -1,13 +1,4 @@
 class Node
   attr_accessor :name
-  attr_accessor :films
-
-  def initialize
-    @name = name
-    @films = {}
-  end
-
-
-
-
+  attr_accessor :film_actor_hash
 end
