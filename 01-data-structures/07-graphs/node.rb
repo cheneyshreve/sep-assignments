@@ -5,7 +5,6 @@ class Node
 
   def initialize(name)
     @name = name
-    @film_actor_hash = {name: @name}
   end
 
 
