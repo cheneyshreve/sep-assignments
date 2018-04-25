@@ -128,6 +128,10 @@ class KevinBacon
          end
          all = (links + film_target).uniq
          return "Sorry, no Bacon found." if all.nil?
+         # limit return array to at most 6 films
+         if all.length > 6
+           all.slice!(0,6)
+         end
          puts "#{actor_name} is connected to Kevin Bacon through #{all}"
        end
   end
