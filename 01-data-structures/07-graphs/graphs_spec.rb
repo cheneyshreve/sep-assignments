@@ -46,9 +46,16 @@ describe "#find_kevin_bacon for 1st degree connection" do
    }
 end
 
+describe "#find_kevin_bacon for 2nd degree connection" do
+   specify {
+    expected_output = "Keira Knightley is connected to Kevin Bacon through [\"\Black Mass", "Pirates of the Caribbean: Dead Man's Chest\"\]."
+    expect { expect { tree.find_kevin_bacon(root,"Keira Knightley") }.to output(expected_output).to_stdout}
+   }
+end
+
 describe "#find_kevin_bacon for a 3rd degree connection" do
   specify {
-   expected_output = "Elizabeth Allen is connected to Kevin Bacon through [\"\Dead Man's Shoes", "The Three Weird Sisters\"\]"
+   expected_output = "Elizabeth Allen is connected to Kevin Bacon through [\"\"The Big Picture","Dead Man's Shoes", "The Three Weird Sisters\"\]"
    expect { expect { tree.find_kevin_bacon(root,"Elizabeth Allen") }.to output(expected_output).to_stdout}
   }
 end

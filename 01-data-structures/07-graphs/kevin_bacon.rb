@@ -84,6 +84,15 @@ class KevinBacon
        linking_films << film
       end
     end
+
+    # bacon films for later reference
+    bacon_films = []
+    database.each do |film,actors|
+       if database[film].include?("Kevin Bacon")
+        bacon_films << film
+       end
+    end
+
     # extract the target actor's films and coactors they've acted with
     linking_actors = []
     film_target = []
@@ -126,7 +135,21 @@ class KevinBacon
              end
            end
          end
-         all = (links + film_target).uniq
+
+         # Lastly find how that film links to Bacon
+          final_film = []
+          actor_match = false
+          j = 0
+          until j = actor.length || actor_match = true
+          bacon_films.each do |film|
+             if database[film].include?(actor[j])
+               final_film << film
+               actor_match = true
+               j += 1
+             end
+           end
+         end
+         all = (final_film + links + film_target).uniq
          return "Sorry, no Bacon found." if all.nil?
          # limit return array to at most 6 films
          if all.length > 6
